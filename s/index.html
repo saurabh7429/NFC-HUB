@@ -5,12 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Business Micro-Site</title>
   <link rel="stylesheet" href="style.css">
+  <noscript>
+    <style>
+      .loading-state { display: none !important; }
+      .noscript-notice {
+        display: block !important;
+        padding: 24px 16px;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        text-align: center;
+        margin: 20px auto;
+        max-width: 440px;
+      }
+      .noscript-notice a {
+        display: inline-block;
+        margin-top: 12px;
+        padding: 12px 20px;
+        background: #1d4ed8;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+    </style>
+  </noscript>
 </head>
 <body>
   <div id="app" class="site-container">
-    <div id="loading" class="loading-state">
-      <div class="spinner"></div>
-      <p>Loading...</p>
+    <!-- Non-JavaScript Fallback (Pre-rendered or Static Fallback Notice) -->
+    <noscript>
+      <div class="noscript-notice">
+        <h2>Interactive Features Disabled</h2>
+        <p>JavaScript is disabled in your browser. If you are trying to leave a review or visit this business:</p>
+        <p style="margin-top: 8px; font-size: 0.9rem; color: #64748b;">Please enable JavaScript to view full business information and interactive actions.</p>
+      </div>
+    </noscript>
+
+    <!-- Interactive JS App -->
+    <div id="loading" class="loading-state" role="status" aria-live="polite">
+      <div class="spinner" aria-hidden="true"></div>
+      <p>Loading business profile...</p>
     </div>
 
     <main id="content" class="content-wrapper" style="display: none;">
@@ -20,12 +55,16 @@
         <p id="business-tagline" class="business-tagline"></p>
       </header>
 
-      <section id="links-container" class="links-section">
+      <!-- Link Hub Section -->
+      <section id="links-container" class="links-section" aria-label="Business Actions">
         <!-- Links rendered dynamically from b.json -->
       </section>
 
-      <div id="direct-review-fallback" class="direct-fallback" style="display: none;">
-        <p>Redirecting to Google Review...</p>
+      <!-- Direct Review Fallback Section -->
+      <div id="direct-review-fallback" class="direct-fallback" style="display: none;" role="region" aria-label="Review Redirection">
+        <div class="direct-icon" aria-hidden="true">⭐</div>
+        <h2>Redirecting you to Google Review...</h2>
+        <p class="direct-subtext">You should be redirected automatically in a moment.</p>
         <a id="direct-review-link" href="#" class="btn btn-primary" rel="noopener noreferrer">Click here if not redirected automatically</a>
       </div>
 
@@ -34,8 +73,10 @@
       </footer>
     </main>
 
-    <div id="error-state" class="error-state" style="display: none;">
-      <h2>Notice</h2>
+    <!-- Controlled Inactive / Error State -->
+    <div id="error-state" class="error-state" style="display: none;" role="alert">
+      <div class="error-icon" aria-hidden="true">🔒</div>
+      <h2 id="error-title">Notice</h2>
       <p id="error-message">Unable to load business details.</p>
     </div>
   </div>

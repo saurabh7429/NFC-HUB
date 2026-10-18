@@ -54,7 +54,9 @@ export function saveAppConfig(newConfig) {
 }
 
 export function getCanonicalUrl(businessId, config = loadAppConfig()) {
-  const baseUrl = config.publicBaseUrl.replace(/\/+$/, '');
-  const prefix = config.businessRoutePrefix.replace(/\/+$/, '');
-  return `${baseUrl}${prefix}/${businessId}/`;
+  const baseUrl = (config.publicBaseUrl || '').trim().replace(/\/+$/, '');
+  const prefix = (config.businessRoutePrefix || '').trim().replace(/^\/+|\/+$/g, '');
+  const cleanId = (businessId || '').trim().replace(/^\/+|\/+$/g, '');
+  const pathPart = prefix ? `/${prefix}/${cleanId}/` : `/${cleanId}/`;
+  return `${baseUrl}${pathPart}`;
 }

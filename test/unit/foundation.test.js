@@ -71,13 +71,19 @@ describe('Unit Tests: Core Foundation', () => {
     expect(ids.size).toBeGreaterThan(90);
   });
 
-  it('computes correct canonical public URL', () => {
+  it('computes correct canonical public URL including project path and normalized slashes', () => {
     const config = {
-      publicBaseUrl: "https://saurabh7429.github.io",
-      businessRoutePrefix: "/b"
+      publicBaseUrl: "https://saurabh7429.github.io/NFC-HUB/",
+      businessRoutePrefix: "/b/"
     };
     const url = getCanonicalUrl('a7k', config);
-    expect(url).toBe('https://saurabh7429.github.io/b/a7k/');
+    expect(url).toBe('https://saurabh7429.github.io/NFC-HUB/b/a7k/');
+
+    const cleanConfig = {
+      publicBaseUrl: "https://saurabh7429.github.io/NFC-HUB",
+      businessRoutePrefix: "/b"
+    };
+    expect(getCanonicalUrl('a7k', cleanConfig)).toBe('https://saurabh7429.github.io/NFC-HUB/b/a7k/');
   });
 
   it('validates card theme.json schema', () => {
