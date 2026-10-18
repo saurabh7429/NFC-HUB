@@ -1,0 +1,69 @@
+- generic [ref=f6e2]:
+  - navigation [ref=f6e3]:
+    - link "About" [ref=f6e4] [cursor=pointer]:
+      - /url: https://about.google/?fg=1&utm_source=google-IN&utm_medium=referral&utm_campaign=hp-header
+    - link "Store" [ref=f6e5] [cursor=pointer]:
+      - /url: https://store.google.com/IN?utm_source=hp_header&utm_medium=google_ooo&utm_campaign=GS100042&hl=en-IN
+    - generic [ref=f6e7]:
+      - generic [ref=f6e8]:
+        - link "Gmail" [ref=f6e10] [cursor=pointer]:
+          - /url: https://mail.google.com/mail/&ogbl
+        - link "Search for Images" [ref=f6e12] [cursor=pointer]:
+          - /url: https://www.google.com/imghp?hl=en&ogbl
+          - text: Images
+      - button "Google apps" [ref=f6e15] [cursor=pointer]
+      - link "Sign in" [ref=f6e20] [cursor=pointer]:
+        - /url: https://accounts.google.com/ServiceLogin?hl=en&passive=true&continue=https://www.google.com/&ec=futura_exp_og_so_72776762_e
+  - img "Google" [ref=f6e23]
+  - search [ref=f6e31]:
+    - generic [ref=f6e33]:
+      - generic [ref=f6e35]:
+        - button "Add files and tools" [ref=f6e42] [cursor=pointer]
+        - combobox "Search" [active] [ref=f6e47]
+        - generic [ref=f6e48]:
+          - generic [ref=f6e49]:
+            - button "Search by voice" [ref=f6e52] [cursor=pointer]
+            - button "Search by image" [ref=f6e57] [cursor=pointer]
+          - link "AI Mode" [ref=f6e60] [cursor=pointer]
+      - generic [ref=f6e69]:
+        - button "Create images" [ref=f6e70] [cursor=pointer]:
+          - generic [aria-hidden] [ref=f6e71]: 🍌
+        - button "Ask about files" [ref=f6e73] [cursor=pointer]
+        - button "Brainstorm" [ref=f6e78] [cursor=pointer]
+        - button "I am feeling lucky" [ref=f6e83] [cursor=pointer]
+  - generic [ref=f6e87]:
+    - text: "Google offered in:"
+    - link "हिन्दी" [ref=f6e88] [cursor=pointer]:
+      - /url: https://www.google.com/setprefs?sig=0_Eddu98_J5U5mNDCiX3zfyyaG59M%3D&hl=hi&source=homepage&sa=X&ved=0ahUKEwjN2aGAhMOXAxVVwjgGHUqdDLMQ2ZgBCCo
+    - link "বাংলা" [ref=f6e89] [cursor=pointer]:
+      - /url: https://www.google.com/setprefs?sig=0_Eddu98_J5U5mNDCiX3zfyyaG59M%3D&hl=bn&source=homepage&sa=X&ved=0ahUKEwjN2aGAhMOXAxVVwjgGHUqdDLMQ2ZgBCCs
+    - link "తెలుగు" [ref=f6e90] [cursor=pointer]:
+      - /url: https://www.google.com/setprefs?sig=0_Eddu98_J5U5mNDCiX3zfyyaG59M%3D&hl=te&source=homepage&sa=X&ved=0ahUKEwjN2aGAhMOXAxVVwjgGHUqdDLMQ2ZgBCCw
+    - link "मराठी" [ref=f6e91] [cursor=pointer]:
+      - /url: https://www.google.com/setprefs?sig=0_Eddu98_J5U5mNDCiX3zfyyaG59M%3D&hl=mr&source=homepage&sa=X&ved=0ahUKEwjN2aGAhMOXAxVVwjgGHUqdDLMQ2ZgBCC0
+    - link "தமிழ்" [ref=f6e92] [cursor=pointer]:
+      - /url: https://www.google.com/setprefs?sig=0_Eddu98_J5U5mNDCiX3zfyyaG59M%3D&hl=ta&source=homepage&sa=X&ved=0ahUKEwjN2aGAhMOXAxVVwjgGHUqdDLMQ2ZgBCC4
+    - link "ગુજરાતી" [ref=f6e93] [cursor=pointer]:
+      - /url: https://www.google.com/setprefs?sig=0_Eddu98_J5U5mNDCiX3zfyyaG59M%3D&hl=gu&source=homepage&sa=X&ved=0ahUKEwjN2aGAhMOXAxVVwjgGHUqdDLMQ2ZgBCC8
+    - link "ಕನ್ನಡ" [ref=f6e94] [cursor=pointer]:
+      - /url: https://www.google.com/setprefs?sig=0_Eddu98_J5U5mNDCiX3zfyyaG59M%3D&hl=kn&source=homepage&sa=X&ved=0ahUKEwjN2aGAhMOXAxVVwjgGHUqdDLMQ2ZgBCDA
+    - link "മലയാളം" [ref=f6e95] [cursor=pointer]:
+      - /url: https://www.google.com/setprefs?sig=0_Eddu98_J5U5mNDCiX3zfyyaG59M%3D&hl=ml&source=homepage&sa=X&ved=0ahUKEwjN2aGAhMOXAxVVwjgGHUqdDLMQ2ZgBCDE
+    - link "ਪੰਜਾਬੀ" [ref=f6e96] [cursor=pointer]:
+      - /url: https://www.google.com/setprefs?sig=0_Eddu98_J5U5mNDCiX3zfyyaG59M%3D&hl=pa&source=homepage&sa=X&ved=0ahUKEwjN2aGAhMOXAxVVwjgGHUqdDLMQ2ZgBCDI
+  - contentinfo [ref=f6e98]:
+    - generic [ref=f6e99]: India
+    - generic [ref=f6e100]:
+      - generic [ref=f6e101]:
+        - link "Advertising" [ref=f6e102] [cursor=pointer]:
+          - /url: https://www.google.com/intl/en_in/ads/?subid=ww-ww-et-g-awa-a-g_hpafoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpafooter&fg=1
+        - link "Business" [ref=f6e103] [cursor=pointer]:
+          - /url: https://www.google.com/services/?subid=ww-ww-et-g-awa-a-g_hpbfoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpbfooter&fg=1
+        - link "How Search works" [ref=f6e104] [cursor=pointer]:
+          - /url: https://google.com/search/howsearchworks/?fg=1
+      - generic [ref=f6e105]:
+        - link "Privacy" [ref=f6e106] [cursor=pointer]:
+          - /url: https://policies.google.com/privacy?hl=en-IN&fg=1
+        - link "Terms" [ref=f6e107] [cursor=pointer]:
+          - /url: https://policies.google.com/terms?hl=en-IN&fg=1
+        - button "Settings" [ref=f6e111] [cursor=pointer]

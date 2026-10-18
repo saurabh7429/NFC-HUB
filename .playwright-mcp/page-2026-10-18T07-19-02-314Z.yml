@@ -1,0 +1,90 @@
+- generic [ref=f2e2]:
+  - complementary [ref=f2e3]:
+    - generic [ref=f2e4]:
+      - generic [ref=f2e5]: ⚡
+      - generic [ref=f2e6]:
+        - heading "NFC HUB" [level=1] [ref=f2e7]
+        - text: Card & Micro-Site Studio
+    - navigation [ref=f2e8]:
+      - button "📁 Businesses" [ref=f2e9] [cursor=pointer]:
+        - generic [ref=f2e10]: 📁
+        - text: Businesses
+      - button "🖨️ Card Print Studio" [active] [ref=f2e11] [cursor=pointer]:
+        - generic [ref=f2e12]: 🖨️
+        - text: Card Print Studio
+      - button "⚙️ Settings & Domain" [ref=f2e13] [cursor=pointer]:
+        - generic [ref=f2e14]: ⚙️
+        - text: Settings & Domain
+    - generic [ref=f2e15]: Local Manager Online
+  - main [ref=f2e19]:
+    - generic [ref=f2e20]:
+      - generic [ref=f2e21]:
+        - heading "Card Print Studio" [level=2] [ref=f2e58]
+        - paragraph [ref=f2e23]: Card Artwork & QR Placement for Veritas Coffee Roasters
+      - button "+ Add Business" [ref=f2e25] [cursor=pointer]:
+        - generic [ref=f2e26]: +
+        - text: Add Business
+    - generic [ref=f2e59]:
+      - generic [ref=f2e60]:
+        - button "← Back to Catalogue" [ref=f2e61] [cursor=pointer]
+        - generic [ref=f2e62]:
+          - button "🔍 Verify QR Scannability" [ref=f2e63] [cursor=pointer]
+          - button "Save Card Layout" [ref=f2e64] [cursor=pointer]
+      - generic [ref=f2e65]:
+        - generic [ref=f2e66]:
+          - generic [ref=f2e67]:
+            - heading "1. Select Business" [level=3] [ref=f2e68]
+            - combobox [ref=f2e70]:
+              - option "Veritas Coffee Roasters (/b/tst/)" [selected]
+          - generic [ref=f2e71]:
+            - heading "2. Choose Card Artwork" [level=3] [ref=f2e72]
+            - generic [ref=f2e73]:
+              - generic [ref=f2e74] [cursor=pointer]:
+                - img "Minimal Dark Luxe" [ref=f2e75]
+                - text: Minimal Dark Luxe
+              - generic [ref=f2e76] [cursor=pointer]:
+                - img "Modern Clean Blue" [ref=f2e77]
+                - text: Modern Clean Blue
+            - generic [ref=f2e78]:
+              - generic [ref=f2e79]: Or Upload Custom Card Reference Image (300 DPI)
+              - generic [ref=f2e80]:
+                - button "Upload Custom Card Art" [ref=f2e81] [cursor=pointer]
+                - generic [ref=f2e82]: None
+          - generic [ref=f2e83]:
+            - heading "3. QR Slot Placement (mm)" [level=3] [ref=f2e84]
+            - generic [ref=f2e85]:
+              - generic [ref=f2e86]:
+                - generic [ref=f2e87]: X Position (mm)
+                - spinbutton [ref=f2e88]: "56"
+              - generic [ref=f2e89]:
+                - generic [ref=f2e90]: Y Position (mm)
+                - spinbutton [ref=f2e91]: "14"
+            - generic [ref=f2e92]:
+              - generic [ref=f2e93]:
+                - generic [ref=f2e94]: QR Size (mm)
+                - spinbutton [ref=f2e95]: "24"
+              - generic [ref=f2e96]:
+                - generic [ref=f2e97]: Show 3mm Bleed Area
+                - combobox [ref=f2e98]:
+                  - option "With Bleed (91.6 × 60 mm)" [selected]
+                  - option "Trim Only (85.6 × 54 mm)"
+          - generic [ref=f2e99]:
+            - heading "4. Print-Ready 300 DPI Export" [level=3] [ref=f2e100]
+            - generic [ref=f2e101]:
+              - text: ⚠️
+              - strong [ref=f2e102]: "Unverified URL Notice:"
+              - text: Business status is "draft". Exports will have a
+              - emphasis [ref=f2e103]: PREVIEW • NOT FOR PRINT
+              - text: watermark until deployment is verified.
+            - generic [ref=f2e104]:
+              - button "Download PDF" [ref=f2e105] [cursor=pointer]
+              - button "Download PNG" [ref=f2e106] [cursor=pointer]
+              - button "Download JPG" [ref=f2e107] [cursor=pointer]
+            - generic [ref=f2e108]: "Physical dimensions: 85.60 × 53.98 mm @ 300 DPI (credit card standard)."
+        - generic [ref=f2e109]:
+          - generic [ref=f2e111]:
+            - img "Card Artwork" [ref=f2e112]
+            - generic [ref=f2e113]: QR Code
+          - generic [ref=f2e115]:
+            - heading "Preflight QR Validation" [level=4] [ref=f2e116]
+            - paragraph [ref=f2e118]: Click "Verify QR Scannability" to test automated decoding from card pixels.

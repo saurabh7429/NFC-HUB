@@ -1,0 +1,12 @@
+- main [ref=f4e3]:
+  - generic [ref=f4e4]:
+    - heading "Veritas Coffee Roasters" [level=1] [ref=f4e5]
+    - paragraph [ref=f4e6]: Artisanal roasts and community hub
+  - region "Business Actions" [ref=f4e7]:
+    - link "Review on Google" [ref=f4e8] [cursor=pointer]:
+      - /url: https://g.page/r/veritas/review
+      - generic [aria-hidden] [ref=f4e9]: ⭐
+    - link "Follow Instagram" [ref=f4e11] [cursor=pointer]:
+      - /url: https://instagram.com/veritas
+      - generic [aria-hidden] [ref=f4e12]: 📷
+  - paragraph [ref=f4e15]: Powered by NFC Hub

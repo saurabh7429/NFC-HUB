@@ -1,0 +1,40 @@
+- generic [ref=e2]:
+  - complementary [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]: ⚡
+      - generic [ref=e6]:
+        - heading "NFC HUB" [level=1] [ref=e7]
+        - text: Card & Micro-Site Studio
+    - navigation [ref=e8]:
+      - button "📁 Businesses" [ref=e9] [cursor=pointer]:
+        - generic [ref=e10]: 📁
+        - text: Businesses
+      - button "🖨️ Card Print Studio" [ref=e11] [cursor=pointer]:
+        - generic [ref=e12]: 🖨️
+        - text: Card Print Studio
+      - button "⚙️ Settings & Domain" [ref=e13] [cursor=pointer]:
+        - generic [ref=e14]: ⚙️
+        - text: Settings & Domain
+    - generic [ref=e15]: Local Manager Online
+  - main [ref=e19]:
+    - generic [ref=e20]:
+      - generic [ref=e21]:
+        - heading "Business Catalogue" [level=2] [ref=e22]
+        - paragraph [ref=e23]: Manage micro-sites, routing modes, and physical cards
+      - button "+ Add Business" [ref=e25] [cursor=pointer]:
+        - generic [ref=e26]: +
+        - text: Add Business
+    - generic [ref=e27]: "Failed to load businesses: escapeHtml is not defined"
+    - generic [ref=e29]:
+      - generic [ref=e30]:
+        - generic [ref=e31]: Total Businesses
+        - text: "0"
+      - generic [ref=e32]:
+        - generic [ref=e33]: Published / Verified
+        - text: "0"
+      - generic [ref=e34]:
+        - generic [ref=e35]: Drafts
+        - text: "0"
+      - generic [ref=e36]:
+        - generic [ref=e37]: Archived
+        - text: "0"
