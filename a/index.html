@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NFC HUB - Business & Card Management</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">⚡</div>
+        <div class="brand-text">
+          <h1>NFC HUB</h1>
+          <span>Card & Micro-Site Studio</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <button id="nav-catalogue" class="nav-item active" onclick="switchView('catalogue')">
+          <span class="icon">📁</span> Businesses
+        </button>
+        <button id="nav-settings" class="nav-item" onclick="switchView('settings')">
+          <span class="icon">⚙️</span> Settings & Domain
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="system-status">
+          <span class="status-indicator online"></span>
+          <span>Local Manager Online</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <header class="topbar">
+        <div class="topbar-title">
+          <h2 id="view-title">Business Catalogue</h2>
+          <p id="view-subtitle">Manage micro-sites, routing modes, and physical cards</p>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn btn-primary" onclick="openNewBusinessModal()">
+            <span class="icon">+</span> Add Business
+          </button>
+        </div>
+      </header>
+
+      <!-- Alert Banner -->
+      <div id="alert-banner" class="alert-banner" style="display: none;"></div>
+
+      <!-- VIEW: Catalogue -->
+      <section id="view-catalogue-container" class="view-panel">
+        <div class="catalogue-stats">
+          <div class="stat-card">
+            <span class="stat-label">Total Businesses</span>
+            <span id="stat-total" class="stat-value">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Published / Verified</span>
+            <span id="stat-published" class="stat-value text-success">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Drafts</span>
+            <span id="stat-drafts" class="stat-value text-warning">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Archived</span>
+            <span id="stat-archived" class="stat-value text-muted">0</span>
+          </div>
+        </div>
+
+        <div class="card-grid" id="business-grid">
+          <!-- Cards rendered dynamically -->
+        </div>
+      </section>
+
+      <!-- VIEW: Business Editor -->
+      <section id="view-editor-container" class="view-panel" style="display: none;">
+        <div class="editor-header">
+          <button class="btn btn-secondary" onclick="closeEditor()">← Back to Catalogue</button>
+          <div class="editor-actions">
+            <a id="btn-open-preview" href="#" target="_blank" class="btn btn-secondary">Open Live Preview ↗</a>
+            <button id="btn-save-business" class="btn btn-primary" onclick="saveCurrentBusiness()">Save Changes</button>
+          </div>
+        </div>
+
+        <div class="editor-split">
+          <!-- Editor Form -->
+          <div class="editor-form-pane">
+            <form id="business-form" onsubmit="event.preventDefault();">
+              <div class="form-section">
+                <h3>Identity & Profile</h3>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Business ID (Immutable)</label>
+                    <input type="text" id="edit-id" readonly class="input-readonly">
+                  </div>
+                  <div class="form-group">
+                    <label>Status</label>
+                    <select id="edit-status">
+                      <option value="draft">Draft</option>
+                      <option value="build-ready">Build Ready</option>
+                      <option value="published">Published / Verified</option>
+                      <option value="archived">Archived</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Business Name *</label>
+                  <input type="text" id="edit-name" required placeholder="e.g. Apex Dental Clinic">
+                </div>
+
+                <div class="form-group">
+                  <label>Tagline / Greeting</label>
+                  <input type="text" id="edit-tagline" placeholder="e.g. Thank you for your visit! Please leave a review.">
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Theme Style</label>
+                    <select id="edit-theme">
+                      <option value="light">Light</option>
+                      <option value="dark">Dark</option>
+                      <option value="auto">Auto (System)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Accent Color</label>
+                    <div class="color-picker-wrapper">
+                      <input type="color" id="edit-accent-picker" onchange="syncColorInput(this.value)">
+                      <input type="text" id="edit-accent" pattern="^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$" placeholder="#1d4ed8">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Logo Asset</label>
+                  <div class="asset-uploader">
+                    <div id="logo-preview-box" class="logo-preview-box">
+                      <span id="logo-placeholder" class="text-muted">No logo</span>
+                      <img id="logo-img-preview" src="" alt="Logo" style="display: none;">
+                    </div>
+                    <div class="uploader-controls">
+                      <input type="file" id="logo-file-input" accept="image/png, image/jpeg, image/webp" style="display: none;" onchange="handleLogoUpload(this)">
+                      <button type="button" class="btn btn-sm btn-secondary" onclick="document.getElementById('logo-file-input').click()">Upload New Logo</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h3>Routing & Page Mode</h3>
+                <div class="mode-selector">
+                  <label class="radio-card">
+                    <input type="radio" name="page-mode" value="link-hub" id="mode-link-hub" onchange="toggleModeFields()">
+                    <div class="radio-card-body">
+                      <strong>Link Hub</strong>
+                      <span>Shows branded micro-page with Google Review + social links</span>
+                    </div>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="page-mode" value="direct-review" id="mode-direct-review" onchange="toggleModeFields()">
+                    <div class="radio-card-body">
+                      <strong>Direct Review</strong>
+                      <span>Instantly forwards customer directly to Google Review page</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <div class="section-header-row">
+                  <h3>Links & Actions</h3>
+                  <button type="button" class="btn btn-sm btn-secondary" onclick="addNewLinkRow()">+ Add Link</button>
+                </div>
+                <div id="links-editor-list" class="links-editor-list">
+                  <!-- Link items rendered dynamically -->
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Live Preview Pane -->
+          <div class="editor-preview-pane">
+            <div class="preview-device-frame">
+              <div class="device-notch"></div>
+              <iframe id="preview-iframe" src="about:blank" title="Mobile Preview"></iframe>
+            </div>
+            <div class="preview-details">
+              <span class="preview-url-label">Canonical URL:</span>
+              <code id="preview-canonical-url">-</code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: Settings & Domain -->
+      <section id="view-settings-container" class="view-panel" style="display: none;">
+        <div class="settings-card">
+          <h3>Domain & Canonical URL Settings</h3>
+          <p class="text-muted">Configure the public domain that will be encoded into physical NFC cards and QR codes.</p>
+          <div class="form-group">
+            <label>Public Base URL (HTTPS) *</label>
+            <input type="url" id="cfg-public-url" required placeholder="https://saurabh7429.github.io">
+            <small class="form-help">Must be the production root (e.g. <code>https://saurabh7429.github.io</code> or custom domain <code>https://mycards.com</code>).</small>
+          </div>
+          <div class="form-group">
+            <label>Business Route Prefix</label>
+            <input type="text" id="cfg-route-prefix" value="/b" placeholder="/b">
+          </div>
+          <div class="form-group">
+            <label>Default Card Trim Size (mm)</label>
+            <div class="form-row">
+              <input type="number" id="cfg-trim-w" step="0.01" value="85.60" placeholder="Width">
+              <input type="number" id="cfg-trim-h" step="0.01" value="53.98" placeholder="Height">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Target Raster DPI</label>
+            <select id="cfg-raster-dpi">
+              <option value="300">300 DPI (Standard Print)</option>
+              <option value="600">600 DPI (Ultra Fine)</option>
+            </select>
+          </div>
+          <div class="form-group checkbox-group">
+            <label>
+              <input type="checkbox" id="cfg-allow-unverified-export">
+              Allow final print export before public verification (Unchecked = enforce verification gate)
+            </label>
+          </div>
+          <button class="btn btn-primary" onclick="saveSettings()">Save Global Settings</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal: Add Business -->
+  <div id="modal-add-business" class="modal-backdrop" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Add New Business</h3>
+        <button class="modal-close" onclick="closeNewBusinessModal()">✕</button>
+      </div>
+      <form id="form-add-business" onsubmit="handleCreateBusiness(event)">
+        <div class="form-group">
+          <label>Business Name *</label>
+          <input type="text" id="new-name" required placeholder="e.g. Blue Ridge Cafe">
+        </div>
+        <div class="form-group">
+          <label>Short ID (Optional - leave blank for auto-generation)</label>
+          <input type="text" id="new-id" pattern="^[a-z0-9]{3,8}$" placeholder="3-8 lowercase letters/numbers (e.g. brc)">
+          <small class="form-help">Permanent short URL identifier. Cannot be changed once created.</small>
+        </div>
+        <div class="form-group">
+          <label>Initial Page Mode</label>
+          <select id="new-mode">
+            <option value="link-hub">Link Hub (Review + Social Links)</option>
+            <option value="direct-review">Direct Review (Instant Forwarding)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Google Review URL (Optional)</label>
+          <input type="url" id="new-google-url" placeholder="https://g.page/r/.../review">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeNewBusinessModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create Business</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

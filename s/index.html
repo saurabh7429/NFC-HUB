@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Micro-Site</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app" class="site-container">
+    <div id="loading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading...</p>
+    </div>
+
+    <main id="content" class="content-wrapper" style="display: none;">
+      <header class="business-header">
+        <div id="logo-container" class="logo-wrapper"></div>
+        <h1 id="business-name" class="business-title"></h1>
+        <p id="business-tagline" class="business-tagline"></p>
+      </header>
+
+      <section id="links-container" class="links-section">
+        <!-- Links rendered dynamically from b.json -->
+      </section>
+
+      <div id="direct-review-fallback" class="direct-fallback" style="display: none;">
+        <p>Redirecting to Google Review...</p>
+        <a id="direct-review-link" href="#" class="btn btn-primary" rel="noopener noreferrer">Click here if not redirected automatically</a>
+      </div>
+
+      <footer class="site-footer">
+        <p class="powered-by">Powered by NFC Hub</p>
+      </footer>
+    </main>
+
+    <div id="error-state" class="error-state" style="display: none;">
+      <h2>Notice</h2>
+      <p id="error-message">Unable to load business details.</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

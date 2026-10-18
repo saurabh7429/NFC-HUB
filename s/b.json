@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "starter",
+  "status": "draft",
+  "name": "Starter Business",
+  "tagline": "Thank you for visiting us",
+  "branding": {
+    "logo": null,
+    "theme": "light",
+    "accentColor": "#1d4ed8"
+  },
+  "page": {
+    "mode": "link-hub",
+    "title": "Starter Business",
+    "description": "Connect with us and leave a review"
+  },
+  "links": [
+    {
+      "id": "google-review",
+      "type": "google-review",
+      "label": "Review us on Google",
+      "url": "https://g.page/r/example/review",
+      "enabled": true,
+      "order": 1
+    },
+    {
+      "id": "instagram",
+      "type": "instagram",
+      "label": "Instagram",
+      "url": "https://www.instagram.com/example",
+      "enabled": false,
+      "order": 2
+    },
+    {
+      "id": "whatsapp",
+      "type": "whatsapp",
+      "label": "WhatsApp",
+      "url": "https://wa.me/15551234567",
+      "enabled": false,
+      "order": 3
+    }
+  ],
+  "card": {
+    "themeId": "01",
+    "referenceImage": null,
+    "trimMm": {
+      "width": 85.6,
+      "height": 53.98
+    },
+    "bleedMm": 3,
+    "qr": {
+      "xMm": 60,
+      "yMm": 17,
+      "sizeMm": 18
+    },
+    "exports": {
+      "pdf": true,
+      "jpg": true,
+      "png": true
+    }
+  },
+  "publish": {
+    "canonicalPath": "/b/starter/",
+    "verifiedAt": null
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "nfc-hub",
+  "version": "1.0.0",
+  "description": "Business Review & NFC Card Management Platform",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node api/server.js",
+    "dev": "node api/server.js",
+    "test": "vitest run",
+    "validate": "node scripts/validate.js",
+    "build": "node scripts/build.js"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "multer": "^1.4.5-lts.1",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0",
+    "vitest": "^2.1.8"
+  }
+}
