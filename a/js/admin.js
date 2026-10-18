@@ -20,18 +20,22 @@ function showAlert(message, type = 'success') {
 function switchView(viewName) {
   const catalogueContainer = document.getElementById('view-catalogue-container');
   const editorContainer = document.getElementById('view-editor-container');
+  const studioContainer = document.getElementById('view-studio-container');
   const settingsContainer = document.getElementById('view-settings-container');
 
   const navCatalogue = document.getElementById('nav-catalogue');
+  const navStudio = document.getElementById('nav-studio');
   const navSettings = document.getElementById('nav-settings');
   const viewTitle = document.getElementById('view-title');
   const viewSubtitle = document.getElementById('view-subtitle');
 
   catalogueContainer.style.display = 'none';
   editorContainer.style.display = 'none';
+  if (studioContainer) studioContainer.style.display = 'none';
   settingsContainer.style.display = 'none';
 
   navCatalogue.classList.remove('active');
+  if (navStudio) navStudio.classList.remove('active');
   navSettings.classList.remove('active');
 
   if (viewName === 'catalogue') {
@@ -44,6 +48,11 @@ function switchView(viewName) {
     editorContainer.style.display = 'block';
     viewTitle.textContent = 'Business Editor';
     viewSubtitle.textContent = `Editing ${currentBusiness?.name || 'Business'}`;
+  } else if (viewName === 'studio') {
+    if (studioContainer) studioContainer.style.display = 'block';
+    if (navStudio) navStudio.classList.add('active');
+    viewTitle.textContent = 'Card Print Studio';
+    viewSubtitle.textContent = `Card Artwork & QR Placement for ${studioBusiness?.name || 'Business'}`;
   } else if (viewName === 'settings') {
     settingsContainer.style.display = 'block';
     navSettings.classList.add('active');
@@ -426,12 +435,270 @@ async function saveSettings() {
   }
 }
 
-function escapeHtml(str) {
-  if (!str) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+// ==========================================================================
+// Card Print Studio Functions
+// ==========================================================================
+let studioBusiness = null;
+let studioThemes = [];
+let allBusinessesCache = [];
+
+async function openStudioForCurrent() {
+  if (currentBusiness) {
+    await openStudio(currentBusiness.id);
+  } else {
+    openStudioForCurrentOrFirst();
+  }
 }
+
+async function openStudioForCurrentOrFirst() {
+  if (currentBusiness) {
+    await openStudio(currentBusiness.id);
+  } else {
+    try {
+      const res = await fetch('/api/businesses');
+      const json = await res.json();
+      if (json.success && json.data.length > 0) {
+        await openStudio(json.data[0].id);
+      } else {
+        showAlert('Please create at least one business before opening Card Studio', 'error');
+        switchView('catalogue');
+      }
+    } catch (e) {
+      showAlert('Failed to load businesses for Studio', 'error');
+    }
+  }
+}
+
+async function openStudio(businessId) {
+  try {
+    const [bizRes, themesRes] = await Promise.all([
+      fetch(`/api/businesses/${businessId}`),
+      fetch('/api/themes')
+    ]);
+
+    const bizJson = await bizRes.json();
+    const themesJson = await themesRes.json();
+
+    if (!bizJson.success) throw new Error(bizJson.error);
+    studioBusiness = bizJson.data;
+    studioThemes = themesJson.data || [];
+
+    // Populate business select dropdown
+    const resAll = await fetch('/api/businesses');
+    const allJson = await resAll.json();
+    allBusinessesCache = allJson.data || [];
+
+    const selectEl = document.getElementById('studio-business-select');
+    selectEl.innerHTML = '';
+    allBusinessesCache.forEach(b => {
+      const opt = document.createElement('option');
+      opt.value = b.id;
+      opt.textContent = `${b.name} (/b/${b.id}/)`;
+      if (b.id === studioBusiness.id) opt.selected = true;
+      selectEl.appendChild(opt);
+    });
+
+    renderThemesInStudio();
+    populateStudioControls();
+    switchView('studio');
+    refreshStudioPreview();
+  } catch (err) {
+    showAlert(`Failed to open studio: ${err.message}`, 'error');
+  }
+}
+
+async function loadBusinessIntoStudio(businessId) {
+  await openStudio(businessId);
+}
+
+function renderThemesInStudio() {
+  const grid = document.getElementById('studio-themes-grid');
+  grid.innerHTML = '';
+
+  studioThemes.forEach(th => {
+    const card = document.createElement('div');
+    const isSelected = studioBusiness.card?.themeId === th.id && !studioBusiness.card?.referenceImage;
+    card.className = `theme-card-option ${isSelected ? 'active' : ''}`;
+    card.id = `theme-opt-${th.id}`;
+    card.onclick = () => selectThemeForStudio(th.id);
+    card.innerHTML = `
+      <img src="${th.thumbUrl}" alt="${th.name}">
+      <span class="theme-card-name">${escapeHtml(th.name)}</span>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function selectThemeForStudio(themeId) {
+  if (!studioBusiness.card) studioBusiness.card = {};
+  studioBusiness.card.themeId = themeId;
+  studioBusiness.card.referenceImage = null; // Clear custom art when selecting theme
+
+  const theme = studioThemes.find(t => t.id === themeId);
+  if (theme && theme.qrSlotMm) {
+    studioBusiness.card.qr = {
+      xMm: theme.qrSlotMm.x,
+      yMm: theme.qrSlotMm.y,
+      sizeMm: theme.qrSlotMm.width
+    };
+  }
+
+  document.querySelectorAll('.theme-card-option').forEach(el => el.classList.remove('active'));
+  const activeEl = document.getElementById(`theme-opt-${themeId}`);
+  if (activeEl) activeEl.classList.add('active');
+
+  document.getElementById('studio-custom-art-label').textContent = 'None';
+  populateStudioControls();
+  refreshStudioPreview();
+}
+
+function populateStudioControls() {
+  const card = studioBusiness.card || {};
+  const qr = card.qr || { xMm: 56, yMm: 14, sizeMm: 24 };
+
+  document.getElementById('studio-qr-x').value = qr.xMm;
+  document.getElementById('studio-qr-y').value = qr.yMm;
+  document.getElementById('studio-qr-size').value = qr.sizeMm;
+
+  if (card.referenceImage) {
+    document.getElementById('studio-custom-art-label').textContent = card.referenceImage;
+    document.querySelectorAll('.theme-card-option').forEach(el => el.classList.remove('active'));
+  } else {
+    document.getElementById('studio-custom-art-label').textContent = 'None';
+  }
+
+  // Publication gate check
+  const noticeEl = document.getElementById('studio-export-gate-notice');
+  const isVerified = studioBusiness.status === 'published' && studioBusiness.publish?.verifiedAt;
+  if (!isVerified) {
+    noticeEl.style.display = 'block';
+    noticeEl.innerHTML = `⚠️ <strong>Unverified URL Notice:</strong> Business status is "${studioBusiness.status}". Exports will have a <em>PREVIEW • NOT FOR PRINT</em> watermark until deployment is verified.`;
+  } else {
+    noticeEl.style.display = 'none';
+  }
+}
+
+function updateQrCoordinatesFromInputs() {
+  if (!studioBusiness || !studioBusiness.card) return;
+  const x = parseFloat(document.getElementById('studio-qr-x').value) || 0;
+  const y = parseFloat(document.getElementById('studio-qr-y').value) || 0;
+  const size = parseFloat(document.getElementById('studio-qr-size').value) || 20;
+
+  studioBusiness.card.qr = { xMm: x, yMm: y, sizeMm: size };
+  renderQrOverlayBox();
+}
+
+function renderQrOverlayBox() {
+  const overlay = document.getElementById('studio-qr-overlay');
+  const qr = studioBusiness.card?.qr || { xMm: 56, yMm: 14, sizeMm: 24 };
+  const showBleed = document.getElementById('studio-preview-bleed').value === 'true';
+  const bleedMm = showBleed ? (studioBusiness.card.bleedMm || 3) : 0;
+  const totalWidthMm = (studioBusiness.card.trimMm?.width || 85.6) + (bleedMm * 2);
+  const totalHeightMm = (studioBusiness.card.trimMm?.height || 53.98) + (bleedMm * 2);
+
+  const wrapper = document.getElementById('card-canvas-wrapper');
+  const wrapperW = wrapper.clientWidth || 500;
+  const wrapperH = wrapper.clientHeight || 327;
+
+  const scaleX = wrapperW / totalWidthMm;
+  const scaleY = wrapperH / totalHeightMm;
+
+  const leftPx = (qr.xMm + bleedMm) * scaleX;
+  const topPx = (qr.yMm + bleedMm) * scaleY;
+  const sizePx = qr.sizeMm * scaleX;
+
+  overlay.style.left = `${leftPx}px`;
+  overlay.style.top = `${topPx}px`;
+  overlay.style.width = `${sizePx}px`;
+  overlay.style.height = `${sizePx}px`;
+}
+
+function refreshStudioPreview() {
+  if (!studioBusiness) return;
+  const bleed = document.getElementById('studio-preview-bleed').value;
+  const previewImg = document.getElementById('studio-card-preview-img');
+  previewImg.src = `/api/businesses/${studioBusiness.id}/card/preview?bleed=${bleed}&t=${Date.now()}`;
+  renderQrOverlayBox();
+}
+
+async function handleReferenceImageUpload(input) {
+  if (!input.files || !input.files[0] || !studioBusiness) return;
+  const file = input.files[0];
+  const formData = new FormData();
+  formData.append('asset', file);
+
+  try {
+    const res = await fetch(`/api/businesses/${studioBusiness.id}/upload?type=reference`, {
+      method: 'POST',
+      body: formData
+    });
+    const json = await res.json();
+    if (!json.success) throw new Error(json.error);
+
+    studioBusiness.card.referenceImage = json.path;
+    studioBusiness.card.themeId = null; // Custom art takes precedence over built-in theme
+    document.getElementById('studio-custom-art-label').textContent = json.path;
+    document.querySelectorAll('.theme-card-option').forEach(el => el.classList.remove('active'));
+
+    showAlert('Custom reference card artwork uploaded');
+    refreshStudioPreview();
+  } catch (err) {
+    showAlert(`Upload failed: ${err.message}`, 'error');
+  }
+}
+
+async function saveStudioCardSettings() {
+  if (!studioBusiness) return;
+  updateQrCoordinatesFromInputs();
+
+  try {
+    const res = await fetch(`/api/businesses/${studioBusiness.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(studioBusiness)
+    });
+    const json = await res.json();
+    if (!json.success) throw new Error(json.error);
+
+    studioBusiness = json.data;
+    showAlert('Card layout & QR placement saved');
+    refreshStudioPreview();
+  } catch (err) {
+    showAlert(`Failed to save card settings: ${err.message}`, 'error');
+  }
+}
+
+async function verifyQrInStudio() {
+  if (!studioBusiness) return;
+  const statusContent = document.getElementById('preflight-status-content');
+  statusContent.innerHTML = '<p class="text-muted">Decoding QR from composed 300 DPI canvas...</p>';
+
+  try {
+    const res = await fetch(`/api/businesses/${studioBusiness.id}/card/verify-qr`);
+    const json = await res.json();
+
+    if (json.matched) {
+      statusContent.innerHTML = `
+        <span class="preflight-badge passed">✓ QR Verified & Decodable</span>
+        <p><strong>Decoded URL:</strong> <code>${escapeHtml(json.decodedUrl)}</code></p>
+        <p><strong>Fidelity:</strong> Exact match with canonical URL at 300 DPI (${json.dimensions.widthPx} × ${json.dimensions.heightPx} px).</p>
+      `;
+    } else {
+      statusContent.innerHTML = `
+        <span class="preflight-badge failed">✕ Verification Failed</span>
+        <p><strong>Error:</strong> ${escapeHtml(json.error || 'Decoded URL mismatch')}</p>
+        <p>Expected: <code>${escapeHtml(json.expectedUrl)}</code></p>
+        <p>Decoded: <code>${escapeHtml(json.decodedUrl || 'None')}</code></p>
+      `;
+    }
+  } catch (err) {
+    statusContent.innerHTML = `<span class="preflight-badge failed">Preflight Error</span><p>${escapeHtml(err.message)}</p>`;
+  }
+}
+
+function downloadCardExport(format) {
+  if (!studioBusiness) return;
+  const url = `/api/businesses/${studioBusiness.id}/card/export/${format}?save=true`;
+  window.open(url, '_blank');
+}
+

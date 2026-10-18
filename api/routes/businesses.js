@@ -12,8 +12,12 @@ import {
   getBusinessDir
 } from '../services/storageService.js';
 import { allocateUniqueBusinessId, isIdAvailable } from '../services/idService.js';
+import { cardsRouter } from './cards.js';
 
 export const businessesRouter = express.Router();
+
+// Mount card print studio routes on /:id/card
+businessesRouter.use('/:id/card', cardsRouter);
 
 // Multer storage for uploads to b/<id>/i/
 const storage = multer.diskStorage({

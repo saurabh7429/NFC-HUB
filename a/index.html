@@ -22,6 +22,9 @@
         <button id="nav-catalogue" class="nav-item active" onclick="switchView('catalogue')">
           <span class="icon">📁</span> Businesses
         </button>
+        <button id="nav-studio" class="nav-item" onclick="openStudioForCurrentOrFirst()">
+          <span class="icon">🖨️</span> Card Print Studio
+        </button>
         <button id="nav-settings" class="nav-item" onclick="switchView('settings')">
           <span class="icon">⚙️</span> Settings & Domain
         </button>
@@ -84,6 +87,7 @@
         <div class="editor-header">
           <button class="btn btn-secondary" onclick="closeEditor()">← Back to Catalogue</button>
           <div class="editor-actions">
+            <button class="btn btn-secondary" onclick="openStudioForCurrent()">🖨️ Card Studio</button>
             <a id="btn-open-preview" href="#" target="_blank" class="btn btn-secondary">Open Live Preview ↗</a>
             <button id="btn-save-business" class="btn btn-primary" onclick="saveCurrentBusiness()">Save Changes</button>
           </div>
@@ -195,6 +199,104 @@
             <div class="preview-details">
               <span class="preview-url-label">Canonical URL:</span>
               <code id="preview-canonical-url">-</code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: Card Print Studio -->
+      <section id="view-studio-container" class="view-panel" style="display: none;">
+        <div class="editor-header">
+          <button class="btn btn-secondary" onclick="switchView('catalogue')">← Back to Catalogue</button>
+          <div class="editor-actions">
+            <button class="btn btn-secondary" onclick="verifyQrInStudio()">🔍 Verify QR Scannability</button>
+            <button class="btn btn-primary" onclick="saveStudioCardSettings()">Save Card Layout</button>
+          </div>
+        </div>
+
+        <div class="studio-layout">
+          <!-- Left Controls -->
+          <div class="studio-controls-pane">
+            <div class="form-section">
+              <h3>1. Select Business</h3>
+              <div class="form-group">
+                <select id="studio-business-select" onchange="loadBusinessIntoStudio(this.value)">
+                  <!-- Options populated dynamically -->
+                </select>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3>2. Choose Card Artwork</h3>
+              <div class="theme-selection-grid" id="studio-themes-grid">
+                <!-- Theme cards populated dynamically -->
+              </div>
+
+              <div class="form-group" style="margin-top: 16px;">
+                <label>Or Upload Custom Card Reference Image (300 DPI)</label>
+                <div class="asset-uploader">
+                  <input type="file" id="studio-ref-file-input" accept="image/png, image/jpeg, image/webp" style="display: none;" onchange="handleReferenceImageUpload(this)">
+                  <button type="button" class="btn btn-sm btn-secondary" onclick="document.getElementById('studio-ref-file-input').click()">Upload Custom Card Art</button>
+                  <span id="studio-custom-art-label" class="text-muted" style="font-size: 0.8rem;">None</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3>3. QR Slot Placement (mm)</h3>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>X Position (mm)</label>
+                  <input type="number" id="studio-qr-x" step="0.5" min="0" max="80" onchange="updateQrCoordinatesFromInputs()">
+                </div>
+                <div class="form-group">
+                  <label>Y Position (mm)</label>
+                  <input type="number" id="studio-qr-y" step="0.5" min="0" max="50" onchange="updateQrCoordinatesFromInputs()">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>QR Size (mm)</label>
+                  <input type="number" id="studio-qr-size" step="1" min="12" max="60" onchange="updateQrCoordinatesFromInputs()">
+                </div>
+                <div class="form-group">
+                  <label>Show 3mm Bleed Area</label>
+                  <select id="studio-preview-bleed" onchange="refreshStudioPreview()">
+                    <option value="true">With Bleed (91.6 × 60 mm)</option>
+                    <option value="false">Trim Only (85.6 × 54 mm)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3>4. Print-Ready 300 DPI Export</h3>
+              <div id="studio-export-gate-notice" class="export-notice" style="display: none;"></div>
+              <div class="export-button-group">
+                <button class="btn btn-primary" onclick="downloadCardExport('pdf')">Download PDF</button>
+                <button class="btn btn-secondary" onclick="downloadCardExport('png')">Download PNG</button>
+                <button class="btn btn-secondary" onclick="downloadCardExport('jpg')">Download JPG</button>
+              </div>
+              <small class="form-help">Physical dimensions: 85.60 × 53.98 mm @ 300 DPI (credit card standard).</small>
+            </div>
+          </div>
+
+          <!-- Right Interactive Preview -->
+          <div class="studio-preview-pane">
+            <div class="card-preview-viewport">
+              <div id="card-canvas-wrapper" class="card-canvas-wrapper">
+                <img id="studio-card-preview-img" src="" alt="Card Artwork" class="card-base-img">
+                <div id="studio-qr-overlay" class="qr-overlay-box">
+                  <div class="qr-overlay-header">QR Code</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="preflight-status-card" id="studio-preflight-card">
+              <h4>Preflight QR Validation</h4>
+              <div id="preflight-status-content" class="preflight-content">
+                <p class="text-muted">Click "Verify QR Scannability" to test automated decoding from card pixels.</p>
+              </div>
             </div>
           </div>
         </div>

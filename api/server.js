@@ -4,6 +4,7 @@ import path from 'path';
 import { getRootDir, loadAppConfig } from './config.js';
 import { businessesRouter } from './routes/businesses.js';
 import { configRouter } from './routes/config.js';
+import { themesRouter } from './routes/themes.js';
 
 export function createApp() {
   const app = express();
@@ -16,6 +17,7 @@ export function createApp() {
   // API Routes
   app.use('/api/businesses', businessesRouter);
   app.use('/api/config', configRouter);
+  app.use('/api/themes', themesRouter);
 
   // Serve static admin UI at /a/ and root redirect
   app.use('/a', express.static(path.join(rootDir, 'a')));
@@ -25,6 +27,9 @@ export function createApp() {
 
   // Serve businesses directly for local preview at /b/
   app.use('/b', express.static(path.join(rootDir, 'b')));
+
+  // Serve themes at /t/
+  app.use('/t', express.static(path.join(rootDir, 't')));
 
   // Global error handler
   app.use((err, req, res, next) => {

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "01",
+  "name": "Minimal Dark Luxe",
+  "trimMm": {
+    "width": 85.6,
+    "height": 53.98
+  },
+  "bleedMm": 3,
+  "safeAreaMm": 2,
+  "qrSlotMm": {
+    "x": 56,
+    "y": 14,
+    "width": 24,
+    "height": 24
+  },
+  "supports": [
+    "pdf",
+    "jpg",
+    "png"
+  ]
+}
