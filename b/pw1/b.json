@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "pw1",
+  "status": "draft",
+  "name": "Prime Watch",
+  "tagline": "STYLE ON YOUR TIME",
+  "branding": {
+    "logo": null,
+    "theme": "dark",
+    "accentColor": "#C9A84C"
+  },
+  "page": {
+    "mode": "link-hub",
+    "title": "Prime Watch — Style On Your Time",
+    "description": "Explore premium watches. Share your experience and connect with Prime Watch Surat."
+  },
+  "links": [
+    {
+      "id": "google-review",
+      "type": "google-review",
+      "label": "Review Us on Google",
+      "url": "https://search.google.com/local/writereview?placeid=ChIJMeyBNABP4DsRBvApjZALgBY",
+      "enabled": true,
+      "order": 1
+    },
+    {
+      "id": "instagram",
+      "type": "instagram",
+      "label": "Follow Us on Instagram",
+      "url": "https://www.instagram.com/prime.watch.surat",
+      "enabled": true,
+      "order": 2
+    },
+    {
+      "id": "whatsapp",
+      "type": "whatsapp",
+      "label": "Chat on WhatsApp",
+      "url": "https://wa.me/919327155055",
+      "enabled": true,
+      "order": 3
+    }
+  ],
+  "card": {
+    "themeId": "01",
+    "referenceImage": null,
+    "trimMm": {
+      "width": 85.6,
+      "height": 53.98
+    },
+    "bleedMm": 3,
+    "qr": {
+      "xMm": 60,
+      "yMm": 17,
+      "sizeMm": 18
+    },
+    "exports": {
+      "pdf": true,
+      "jpg": true,
+      "png": true
+    }
+  },
+  "publish": {
+    "canonicalPath": "/b/pw1/",
+    "verifiedAt": null
+  }
+}

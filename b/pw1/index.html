@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prime Watch — Style On Your Time</title>
+  <link rel="stylesheet" href="style.css">
+  <noscript>
+    <style>
+      .loading-state { display: none !important; }
+      .noscript-notice {
+        display: block !important;
+        padding: 32px 24px;
+        background: #111111;
+        border: 1px solid #1f1f1f;
+        border-radius: 16px;
+        color: #ffffff;
+        text-align: center;
+        margin: 20px auto;
+        max-width: 440px;
+      }
+      .noscript-notice h2 {
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        color: #E2C97E;
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+      }
+      .noscript-notice a {
+        display: block;
+        margin-top: 12px;
+        padding: 14px 20px;
+        background: #181818;
+        border: 1px solid #C9A84C;
+        color: #E2C97E;
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: 500;
+      }
+    </style>
+  </noscript>
+</head>
+<body>
+  <div id="app" class="site-container">
+    <!-- Non-JavaScript Fallback -->
+    <noscript>
+      <div class="noscript-notice">
+        <h2>Prime Watch</h2>
+        <p>Connect with Prime Watch Surat:</p>
+        <a href="https://search.google.com/local/writereview?placeid=ChIJMeyBNABP4DsRBvApjZALgBY" target="_blank" rel="noopener noreferrer">⭐ Review Us on Google</a>
+        <a href="https://www.instagram.com/prime.watch.surat" target="_blank" rel="noopener noreferrer">📷 Follow Us on Instagram</a>
+        <a href="https://wa.me/919327155055" target="_blank" rel="noopener noreferrer">💬 Chat on WhatsApp</a>
+      </div>
+    </noscript>
+
+    <!-- Loading State -->
+    <div id="loading" class="loading-state" role="status" aria-live="polite">
+      <div class="spinner" aria-hidden="true"></div>
+      <p>Loading Prime Watch...</p>
+    </div>
+
+    <!-- Main Content -->
+    <main id="content" class="content-wrapper" style="display: none;">
+      <header class="business-hero">
+        <div id="logo-container" class="logo-wrapper">
+          <!-- Fallback luxury watch icon if no custom logo -->
+          <div class="brand-icon-wrapper" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="7"></circle>
+              <polyline points="12 9 12 12 13.5 13.5"></polyline>
+              <path d="M16.51 17.35l-.35 3.83a2 2 0 0 1-2 1.82H9.83a2 2 0 0 1-2-1.82l-.35-3.83"></path>
+              <path d="M7.49 6.65l.35-3.83A2 2 0 0 1 9.83 1h4.34a2 2 0 0 1 2 1.82l.35 3.83"></path>
+            </svg>
+          </div>
+        </div>
+
+        <div class="crown-ornament" aria-hidden="true">
+          <div class="crown-ornament-diamond"></div>
+        </div>
+
+        <h1 id="business-name" class="business-title">Prime Watch</h1>
+        <p id="business-tagline" class="business-tagline">Style On Your Time</p>
+      </header>
+
+      <section class="welcome-message" aria-label="Welcome">
+        <p>Explore luxury and precision timepieces. Share your experience or reach out directly.</p>
+      </section>
+
+      <div class="gold-divider" aria-hidden="true">
+        <div class="gold-divider-dot"></div>
+      </div>
+
+      <!-- Links Section -->
+      <section id="links-container" class="links-section" aria-label="Business Actions">
+        <!-- Rendered dynamically via script.js -->
+      </section>
+
+      <!-- Direct Review Fallback Section -->
+      <div id="direct-review-fallback" class="direct-fallback" style="display: none;" role="region" aria-label="Review Redirection">
+        <div class="direct-icon" aria-hidden="true">⭐</div>
+        <h2>Redirecting you to Google Review...</h2>
+        <p class="direct-subtext">You should be redirected automatically in a moment.</p>
+        <a id="direct-review-link" href="#" class="btn btn-primary" rel="noopener noreferrer">Click here if not redirected automatically</a>
+      </div>
+
+      <footer class="site-footer">
+        <div class="footer-divider" aria-hidden="true"></div>
+        <p class="footer-text">Thank you for choosing Prime Watch.</p>
+      </footer>
+    </main>
+
+    <!-- Error State -->
+    <div id="error-state" class="error-state" style="display: none;" role="alert">
+      <div class="error-icon" aria-hidden="true">🔒</div>
+      <h2 id="error-title">Notice</h2>
+      <p id="error-message">Unable to load business details.</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
