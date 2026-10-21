@@ -449,3 +449,23 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Google App Icon Theming */
+.google-tile-bg {
+  fill: #ffffff;
+}
+
+[data-theme="dark"] .google-tile-bg {
+  fill: #202124;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .google-tile-bg {
+    fill: #202124;
+  }
+}
+
+.brand-app-icon.icon-google-review {
+  background: transparent;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
