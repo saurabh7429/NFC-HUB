@@ -6,8 +6,8 @@
   "tagline": "STYLE ON YOUR TIME",
   "branding": {
     "logo": null,
-    "theme": "dark",
-    "accentColor": "#C9A84C"
+    "theme": "auto",
+    "accentColor": "#2563eb"
   },
   "page": {
     "mode": "link-hub",
@@ -18,7 +18,7 @@
     {
       "id": "google-review",
       "type": "google-review",
-      "label": "Review Us on Google",
+      "label": "Review us on Google",
       "url": "https://search.google.com/local/writereview?placeid=ChIJMeyBNABP4DsRBvApjZALgBY",
       "enabled": true,
       "order": 1
@@ -26,7 +26,7 @@
     {
       "id": "instagram",
       "type": "instagram",
-      "label": "Follow Us on Instagram",
+      "label": "Follow on Instagram",
       "url": "https://www.instagram.com/prime.watch.surat",
       "enabled": true,
       "order": 2

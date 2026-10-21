@@ -10,31 +10,24 @@
       .loading-state { display: none !important; }
       .noscript-notice {
         display: block !important;
-        padding: 32px 24px;
-        background: #111111;
-        border: 1px solid #1f1f1f;
+        padding: 32px 20px;
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
         border-radius: 16px;
-        color: #ffffff;
+        color: #0f172a;
         text-align: center;
         margin: 20px auto;
         max-width: 440px;
       }
-      .noscript-notice h2 {
-        font-family: 'Cormorant Garamond', Georgia, serif;
-        color: #E2C97E;
-        font-size: 1.5rem;
-        margin-bottom: 12px;
-      }
       .noscript-notice a {
         display: block;
-        margin-top: 12px;
-        padding: 14px 20px;
-        background: #181818;
-        border: 1px solid #C9A84C;
-        color: #E2C97E;
+        margin-top: 10px;
+        padding: 12px 16px;
+        background: #2563eb;
+        color: #ffffff;
         text-decoration: none;
-        border-radius: 12px;
-        font-weight: 500;
+        border-radius: 10px;
+        font-weight: 600;
       }
     </style>
   </noscript>
@@ -45,73 +38,64 @@
     <noscript>
       <div class="noscript-notice">
         <h2>Prime Watch</h2>
-        <p>Connect with Prime Watch Surat:</p>
-        <a href="https://search.google.com/local/writereview?placeid=ChIJMeyBNABP4DsRBvApjZALgBY" target="_blank" rel="noopener noreferrer">⭐ Review Us on Google</a>
-        <a href="https://www.instagram.com/prime.watch.surat" target="_blank" rel="noopener noreferrer">📷 Follow Us on Instagram</a>
-        <a href="https://wa.me/919327155055" target="_blank" rel="noopener noreferrer">💬 Chat on WhatsApp</a>
+        <p>Style On Your Time</p>
+        <a href="https://search.google.com/local/writereview?placeid=ChIJMeyBNABP4DsRBvApjZALgBY" target="_blank" rel="noopener noreferrer">Review us on Google</a>
+        <a href="https://www.instagram.com/prime.watch.surat" target="_blank" rel="noopener noreferrer">Follow on Instagram</a>
+        <a href="https://wa.me/919327155055" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
       </div>
     </noscript>
 
     <!-- Loading State -->
     <div id="loading" class="loading-state" role="status" aria-live="polite">
       <div class="spinner" aria-hidden="true"></div>
-      <p>Loading Prime Watch...</p>
+      <p>Loading profile...</p>
     </div>
 
     <!-- Main Content -->
     <main id="content" class="content-wrapper" style="display: none;">
-      <header class="business-hero">
-        <div id="logo-container" class="logo-wrapper">
-          <!-- Fallback luxury watch icon if no custom logo -->
-          <div class="brand-icon-wrapper" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="7"></circle>
-              <polyline points="12 9 12 12 13.5 13.5"></polyline>
-              <path d="M16.51 17.35l-.35 3.83a2 2 0 0 1-2 1.82H9.83a2 2 0 0 1-2-1.82l-.35-3.83"></path>
-              <path d="M7.49 6.65l.35-3.83A2 2 0 0 1 9.83 1h4.34a2 2 0 0 1 2 1.82l.35 3.83"></path>
-            </svg>
-          </div>
+      <header class="business-header">
+        <div id="logo-container" class="profile-avatar-wrap">
+          <!-- Real clean timepiece icon SVG -->
+          <svg class="avatar-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="7"></circle>
+            <polyline points="12 9 12 12 13.5 13.5"></polyline>
+            <path d="M16.51 17.35l-.35 3.83a2 2 0 0 1-2 1.82H9.83a2 2 0 0 1-2-1.82l-.35-3.83"></path>
+            <path d="M7.49 6.65l.35-3.83A2 2 0 0 1 9.83 1h4.34a2 2 0 0 1 2 1.82l.35 3.83"></path>
+          </svg>
         </div>
 
-        <div class="crown-ornament" aria-hidden="true">
-          <div class="crown-ornament-diamond"></div>
+        <div class="title-row">
+          <h1 id="business-name" class="business-title">Prime Watch</h1>
+          <!-- Verified checkmark badge icon -->
+          <svg class="verified-icon" viewBox="0 0 24 24" aria-label="Verified Business">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
         </div>
 
-        <h1 id="business-name" class="business-title">Prime Watch</h1>
-        <p id="business-tagline" class="business-tagline">Style On Your Time</p>
+        <p id="business-tagline" class="business-tagline">STYLE ON YOUR TIME</p>
+        <p class="business-desc">Connect with Prime Watch Surat. Leave a review or contact us directly.</p>
       </header>
 
-      <section class="welcome-message" aria-label="Welcome">
-        <p>Explore luxury and precision timepieces. Share your experience or reach out directly.</p>
-      </section>
-
-      <div class="gold-divider" aria-hidden="true">
-        <div class="gold-divider-dot"></div>
-      </div>
-
-      <!-- Links Section -->
-      <section id="links-container" class="links-section" aria-label="Business Actions">
-        <!-- Rendered dynamically via script.js -->
+      <!-- Action Links Stack -->
+      <section id="links-container" class="links-section" aria-label="Quick Actions">
+        <!-- Action cards rendered via script.js -->
       </section>
 
       <!-- Direct Review Fallback Section -->
       <div id="direct-review-fallback" class="direct-fallback" style="display: none;" role="region" aria-label="Review Redirection">
-        <div class="direct-icon" aria-hidden="true">⭐</div>
-        <h2>Redirecting you to Google Review...</h2>
+        <h2>Redirecting to Google Review...</h2>
         <p class="direct-subtext">You should be redirected automatically in a moment.</p>
-        <a id="direct-review-link" href="#" class="btn btn-primary" rel="noopener noreferrer">Click here if not redirected automatically</a>
+        <a id="direct-review-link" href="#" class="btn-redirect" rel="noopener noreferrer">Click here to continue</a>
       </div>
 
       <footer class="site-footer">
-        <div class="footer-divider" aria-hidden="true"></div>
-        <p class="footer-text">Thank you for choosing Prime Watch.</p>
+        <p class="footer-copy">Prime Watch Surat</p>
       </footer>
     </main>
 
     <!-- Error State -->
     <div id="error-state" class="error-state" style="display: none;" role="alert">
-      <div class="error-icon" aria-hidden="true">🔒</div>
-      <h2 id="error-title">Notice</h2>
+      <h2>Notice</h2>
       <p id="error-message">Unable to load business details.</p>
     </div>
   </div>
